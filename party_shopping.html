@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#1f4e78">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Party List">
+<title>Party Shopping — May 23</title>
+<link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIlBhcnR5IFNob3BwaW5nIExpc3QiLAogICJzaG9ydF9uYW1lIjogIlBhcnR5IExpc3QiLAogICJzdGFydF91cmwiOiAiLiIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiI2ZmZmZmZiIsCiAgInRoZW1lX2NvbG9yIjogIiMxZjRlNzgiCn0=">
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#f7f6f3;--surface:#fff;--surface-alt:#f1efe8;--border:rgba(0,0,0,.1);--border-strong:rgba(0,0,0,.2);
+  --text:#1a1a1a;--text-sec:#5f5e5a;--text-tri:#888780;
+  --primary:#1f4e78;--success:#3b6d11;--warning:#854f0b;--warning-bg:#faeeda;--danger:#a32d2d;--info:#185fa5;--info-bg:#e6f1fb
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#1c1b18;--surface:#26251f;--surface-alt:#2c2c2a;--border:rgba(255,255,255,.12);--border-strong:rgba(255,255,255,.25);--text:#f1efe8;--text-sec:#b4b2a9;--text-tri:#888780;--info-bg:#0c447c;--warning-bg:#633806}
+}
+body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:14px;line-height:1.5;min-height:100vh}
+.app{max-width:480px;margin:0 auto;padding:12px;padding-bottom:80px}
+.head{padding:8px 4px 6px}
+.title{font-size:20px;font-weight:600;margin:0 0 2px}
+.sub{font-size:12px;color:var(--text-sec);margin:0}
+.prog-row{display:flex;justify-content:space-between;font-size:12px;color:var(--text-sec);margin:10px 0 4px;font-variant-numeric:tabular-nums}
+.prog-bar{height:6px;background:var(--surface-alt);border-radius:999px;overflow:hidden}
+.prog-fill{height:100%;background:var(--info);transition:width .25s}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:10px 0 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex-shrink:0;padding:9px 14px;border-radius:999px;border:1px solid var(--border);background:var(--surface);font-size:13px;color:var(--text-sec);cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:6px;font-weight:500}
+.chip.active{background:var(--text);color:var(--bg);border-color:var(--text)}
+.chip-badge{font-size:11px;background:var(--surface-alt);color:var(--text-sec);padding:1px 7px;border-radius:999px}
+.chip.active .chip-badge{background:rgba(255,255,255,.2);color:#fff}
+.chip.done{opacity:0.5}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:12px}
+.store-name{font-size:17px;font-weight:600;margin:0 0 4px}
+.store-note{font-size:12.5px;color:var(--text-sec);margin:0 0 10px}
+.alert{background:var(--warning-bg);border-radius:10px;padding:9px 11px;font-size:12.5px;color:var(--warning);margin-bottom:10px;line-height:1.4}
+.stats{display:flex;gap:8px;margin-bottom:8px}
+.stat{flex:1;background:var(--surface-alt);border-radius:10px;padding:9px 10px}
+.stat-l{font-size:11px;color:var(--text-sec);margin:0}
+.stat-v{font-size:15px;font-weight:600;margin:2px 0 0;font-variant-numeric:tabular-nums}
+.item{border-top:1px solid var(--border);padding:11px 0}
+.item:first-of-type{border-top:none}
+.row{display:flex;align-items:flex-start;gap:11px;cursor:pointer}
+.cb{flex-shrink:0;width:26px;height:26px;border:2px solid var(--border-strong);border-radius:7px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:15px;color:transparent;font-weight:bold;cursor:pointer;transition:all .15s}
+.cb.checked{background:var(--success);border-color:var(--success);color:#fff}
+.main{flex:1;min-width:0}
+.name{font-size:14.5px;line-height:1.35;word-wrap:break-word}
+.done .name{text-decoration:line-through;color:var(--text-tri)}
+.meta{font-size:12px;color:var(--text-sec);margin-top:3px;display:flex;gap:8px;flex-wrap:wrap;font-variant-numeric:tabular-nums}
+.meta strong{color:var(--text);font-weight:600}
+.tag{display:inline-block;background:var(--info-bg);color:var(--info);font-size:10px;padding:1px 7px;border-radius:999px;margin-left:6px;vertical-align:1px;font-weight:600}
+.exp{margin-top:10px;padding:11px;background:var(--surface-alt);border-radius:10px;display:none}
+.open .exp{display:block}
+.notes{font-size:12.5px;color:var(--text-sec);margin:0 0 10px;white-space:pre-line;line-height:1.5}
+.edits{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.edits label{font-size:11px;color:var(--text-sec);display:block;margin-bottom:3px}
+input[type=text],input[type=number]{width:100%;padding:9px 10px;font-size:14px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);font-family:inherit;-webkit-appearance:none}
+input:focus{outline:none;border-color:var(--info)}
+.del{font-size:12.5px;color:var(--danger);background:none;border:none;cursor:pointer;padding:5px 0}
+.add-row{padding:13px;text-align:center;border-top:1px dashed var(--border-strong);margin-top:4px;cursor:pointer;color:var(--info);font-size:13px;font-weight:500}
+.add-form{padding:12px;background:var(--surface-alt);border-radius:10px;margin-top:8px;display:none}
+.add-form.open{display:block}
+.add-form input{margin-bottom:7px}
+.add-form .row2{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+button{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px;font-size:13px;color:var(--text);cursor:pointer;font-family:inherit;font-weight:500}
+button:active{transform:scale(.97)}
+.add-form button{width:100%;margin-top:7px;color:var(--info);border-color:var(--info)}
+.foot{display:flex;gap:8px;margin-top:14px}
+.foot button{flex:1;color:var(--text-sec)}
+.grand{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px;margin-top:12px}
+.gr{display:flex;justify-content:space-between;padding:5px 0;font-size:13px}
+.gr .r{font-variant-numeric:tabular-nums}
+.gr.tot{border-top:1px solid var(--border);margin-top:4px;padding-top:10px;font-size:16px;font-weight:600}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="head">
+    <h1 class="title">Party Shopping</h1>
+    <p class="sub">Sat May 23 • 50-60 guests • 92°F</p>
+    <div class="prog-row"><span id="prog-l">0 of 0</span><span id="prog-a">$0 of $0</span></div>
+    <div class="prog-bar"><div class="prog-fill" id="prog-f" style="width:0%"></div></div>
+  </div>
+  <div class="chips" id="chips"></div>
+  <div id="view"></div>
+  <div class="foot">
+    <button id="reset-btn">↻ Reset all</button>
+    <button id="uncheck-btn">☐ Uncheck all</button>
+  </div>
+</div>
+<script>
+const STORAGE_KEY='party_shopping_v3';
+const DATA_DEF={schema:3,stores:[
+{id:"hd",name:"Home Depot — Lake Mary",short:"Home Depot",note:"4151 W Lake Mary Blvd. Use $300 credit.",alert:"Bring 2 empty propane tanks for trade-in",items:[
+{id:"hd-grill",name:"Outdoor grill (Char-Broil / Nexgrill)",qty:1,unit:"ea",notes:"Use chunk of $300 credit. Confirm in-stock — Memorial Day demand.",price:249},
+{id:"hd-table",name:"6 ft folding plastic outdoor table",qty:1,unit:"ea",notes:"Lifetime 6' commercial. Storage/folding aisle.",price:64.98},
+{id:"hd-skirt",name:"Skirt cover for outdoor workbench",qty:1,unit:"ea",notes:"Husky/Gladiator accessories. Confirm size.",price:39.97},
+{id:"hd-cords",name:"Heavy-duty extension cords (50 ft, 12 ga)",qty:2,unit:"ea",notes:"12/3 SJTW outdoor — grill + crawfish burner + lights.",price:39.97},
+{id:"hd-turf",name:"Green outdoor turf (8x12 roll)",qty:1,unit:"roll",notes:"TrafficMaster or RealGrass.",price:89},
+{id:"hd-soil",name:"Potting soil — Miracle-Gro 2 cu ft",qty:4,unit:"bag",notes:"Garden center.",price:8.97},
+{id:"hd-propane-new",name:"20 lb propane tank — NEW",qty:3,unit:"ea",notes:"3 new + 2 exchanges = 5 total.",price:59.97},
+{id:"hd-propane-exch",name:"20 lb propane tank EXCHANGE",qty:2,unit:"ea",notes:"Trade in your 2 empties.",price:25.97},
+{id:"hd-hangers",name:"Picture hangers (variety pack)",qty:1,unit:"pack",notes:"Hardware aisle.",price:6.97},
+{id:"hd-screws",name:"Wood/drywall screws — small pack",qty:1,unit:"pack",notes:"1.25\" or 1.5\".",price:6.48}
+]},
+{id:"sams",name:"Sam's Club",short:"Sam's",note:"750 Currency Cir, Lake Mary.",alert:"",items:[
+{id:"sams-water",name:"Bottled water 16.9 oz (Member's Mark)",qty:5,unit:"40-pk",notes:"5 x 40-pk = 200 bottles for 50-60 guests on 92°F day.",price:4.78},
+{id:"sams-gatorade",name:"Gatorade variety pack 20 oz",qty:2,unit:"28-pk",notes:"~56 bottles. Pool-side cooler.",price:16.98},
+{id:"sams-soda",name:"Soft drinks 12 oz cans (variety)",qty:3,unit:"case",notes:"3 x 24 = 72 cans.",price:10.98},
+{id:"sams-cups",name:"Clear plastic cups 16 oz",qty:1,unit:"240-ct",notes:"Member's Mark Strong & Soft 240ct.",price:13.98},
+{id:"sams-napkins",name:"Cocktail napkins",qty:1,unit:"240-ct",notes:"Member's Mark.",price:7.98},
+{id:"sams-burgers",name:"Beef patties 1/3 lb (24-pk case)",qty:1,unit:"case",notes:"The 24-pack burger requirement.",price:36.98},
+{id:"sams-dogs",name:"Hot dogs (bulk)",qty:2,unit:"pack",notes:"2 packs.",price:11.98},
+{id:"sams-buns-burg",name:"Hamburger buns",qty:3,unit:"pack",notes:"8-ct per pack; gets you 24.",price:4.48},
+{id:"sams-buns-dog",name:"Hot dog buns",qty:2,unit:"pack",notes:"8-ct per pack.",price:3.98},
+{id:"sams-peanut-oil",name:"Peanut oil — 1 gallon (LouAna)",qty:1,unit:"gal",notes:"For fryer.",price:32.98},
+{id:"sams-ketchup",name:"Ketchup — Heinz 114 oz",qty:1,unit:"btl",notes:"Bulk.",price:6.98},
+{id:"sams-mustard",name:"Yellow mustard — French's 30 oz",qty:1,unit:"btl",notes:"",price:4.48},
+{id:"sams-mayo",name:"Mayonnaise — Hellmann's 60 oz",qty:1,unit:"jar",notes:"Bulk jar.",price:8.48},
+{id:"sams-relish",name:"Sweet relish — large",qty:1,unit:"jar",notes:"",price:4.98},
+{id:"sams-sausage-mix",name:"Cajun smoked sausage + andouille (mix)",qty:3,unit:"lbs",notes:"Jambalaya base — mix for layered smoke.",price:7.5},
+{id:"sams-chicken",name:"Boneless skinless chicken thighs",qty:3,unit:"lbs",notes:"Jambalaya — cube before cooking.",price:4.48},
+{id:"sams-pork",name:"Pork shoulder (cube 1\")",qty:3,unit:"lbs",notes:"Jambalaya.",price:4.28},
+{id:"sams-andouille",name:"Andouille (for boils)",qty:8,unit:"lbs",notes:"3.5 lbs crawfish + 4.3 lbs shrimp ≈ 8 lbs. Cut 3\".",price:7.5},
+{id:"sams-onions",name:"Yellow onions (large bag)",qty:25,unit:"lbs",notes:"Jambalaya 1.5 + crawfish 10 + shrimp 13.5.",price:1.2},
+{id:"sams-peppers",name:"Green bell peppers",qty:1,unit:"lb",notes:"Jambalaya trinity = 0.75 lb.",price:4.48},
+{id:"sams-celery",name:"Celery (3-pack)",qty:1,unit:"pack",notes:"Jambalaya trinity = 0.75 lb.",price:4.48},
+{id:"sams-garlic",name:"Garlic — peeled jar or fresh",qty:5,unit:"head",notes:"~15 heads or 2 jars peeled.",price:5.98},
+{id:"sams-lemons",name:"Lemons (for boils)",qty:15,unit:"ea",notes:"5.25 crawfish + 7.2 shrimp.",price:0.5},
+{id:"sams-oranges",name:"Oranges",qty:3,unit:"ea",notes:"Crawfish boil.",price:1},
+{id:"sams-potatoes",name:"Red potatoes (B-size)",qty:16,unit:"lbs",notes:"6.6 crawfish + 8.8 shrimp.",price:1.2},
+{id:"sams-corn",name:"Corn on the cob — 24-pack",qty:2,unit:"pk",notes:"13 ears crawfish + 18 ears shrimp = 31.",price:8.98},
+{id:"sams-mushrooms",name:"White mushrooms — 24 oz",qty:6,unit:"pk",notes:"Crawfish 2.2 lb + shrimp 3.6 lb.",price:5.98},
+{id:"sams-ice-cook",name:"Ice — cooking & food coolers",qty:12,unit:"20-lb bag",notes:"Crawfish/shrimp cooling + 120qt chest fill. Buy day-of.",price:3.48},
+{id:"sams-ice-drink",name:"Ice — drink coolers",qty:8,unit:"20-lb bag",notes:"~150 lbs for 3 drink coolers (beer / water-soda / cocktail bar). Morning of.",price:3.48},
+{id:"sams-soup-mush",name:"Cream of mushroom soup",qty:2,unit:"can",notes:"",price:2.28},
+{id:"sams-soup-cel",name:"Cream of celery soup",qty:2,unit:"can",notes:"",price:2.28},
+{id:"sams-soup-on",name:"Cream of onion soup",qty:2,unit:"can",notes:"May need Publix backup.",price:2.48},
+{id:"sams-rice",name:"Long-grain rice — 20 lb bag",qty:1,unit:"bag",notes:"Jambalaya 4.4 lb. One bag w/ leftovers.",price:14.98},
+{id:"sams-brown-sugar",name:"Brown sugar — 4 lb bag",qty:1,unit:"bag",notes:"0.1 cup in warm water.",price:4.48},
+{id:"sams-tony",name:"Tony Chachere's — large",qty:2,unit:"ctn",notes:"Jambalaya 0.4 cup + 0.875 lb crawfish + 1.1 lb shrimp.",price:6.48},
+{id:"sams-pepper",name:"Black pepper (large)",qty:1,unit:"ctn",notes:"Skip if you have.",price:4.98},
+{id:"sams-hot-sauce",name:"Louisiana hot sauce (large)",qty:1,unit:"btl",notes:"Jambalaya 0.2 cup.",price:3.48},
+{id:"sams-worcs",name:"Lea & Perrins Worcestershire",qty:1,unit:"btl",notes:"Jambalaya 0.4 cup.",price:5.98},
+{id:"sams-salt",name:"Salt — large box",qty:1,unit:"box",notes:"Crawfish 1.75 c + shrimp 2.125 c.",price:3.48},
+{id:"sams-cayenne",name:"Cayenne pepper",qty:1,unit:"ctn",notes:"Crawfish 0.25 cup.",price:4.48},
+{id:"sams-stock",name:"Chicken stock — 32 oz cartons",qty:4,unit:"ctn",notes:"Jambalaya 1 gallon.",price:3.48},
+{id:"sams-rack",name:"Wire cooling rack (half-sheet 12x17)",qty:2,unit:"ea",notes:"Rest fried/blackened fish. Walmart fallback.",price:8.98},
+{id:"sams-pans",name:"Aluminum foil pans — half-size (30-pk)",qty:1,unit:"pk",notes:"Under rack to catch drippings.",price:16.98}
+]},
+{id:"tw",name:"Total Wine & More",short:"Total Wine",note:"Altamonte / Lake Mary area. Buy slightly over — unopened alcohol is returnable.",alert:"Pool area = CANS ONLY, no glass. All beer in cans.",items:[
+{id:"tw-titos",name:"Tito's Handmade Vodka 1.75L",qty:2,unit:"handle",notes:"For the cocktail bar.\n\nCocktail quick-ref (1.5 oz Tito's + 4 oz mixer):\n• Tito's & Soda — club soda + lime\n• Vodka Cran — cranberry + lime\n• Screwdriver — OJ\n• Moscow Mule — ginger beer + lime\n• Vodka Tonic — tonic + lime",price:32.99},
+{id:"tw-light-beer",name:"Light beer (Bud Light / Mich Ultra) — 30-pk cans",qty:3,unit:"30-pk",notes:"Most cost-efficient. Cans only — pool area.",price:25.99},
+{id:"tw-mex-beer",name:"Mexican lager (Modelo / Corona) — 24-pk cans",qty:2,unit:"24-pk",notes:"Cans.",price:31.99},
+{id:"tw-yuengling",name:"Yuengling / craft option — 24-pk cans",qty:1,unit:"24-pk",notes:"Cans only.",price:23.99}
+]},
+{id:"pub",name:"Publix",short:"Publix",note:"4870 W Lake Mary Blvd. Fresh + cocktail mixers.",alert:"",items:[
+{id:"pub-tasso",name:"Tasso ham (smoked) — 4 oz",qty:1,unit:"pkg",notes:"3.2 oz for jambalaya. Backup: Lombardi's.",price:8.99},
+{id:"pub-dales",name:"Dale's seasoning sauce",qty:1,unit:"btl",notes:"Jambalaya 0.4 cup.",price:5.99},
+{id:"pub-avo-oil",name:"Avocado oil (small)",qty:1,unit:"btl",notes:"Jambalaya 0.2 cup.",price:9.99},
+{id:"pub-bay",name:"Bay leaves (jar)",qty:1,unit:"jar",notes:"2-3 leaves.",price:3.99},
+{id:"pub-parsley",name:"Fresh parsley (bunch)",qty:2,unit:"bunch",notes:"Garnish 0.8 cup chopped.",price:1.99},
+{id:"pub-scallions",name:"Green onions (scallions)",qty:3,unit:"bunch",notes:"Garnish 1.6 cups sliced.",price:1.49},
+{id:"pub-soup-on-bk",name:"Cream of onion (backup)",qty:0,unit:"can",notes:"If Sam's was out.",price:2.79},
+{id:"pub-club-soda",name:"Club soda (Schweppes 1L)",qty:4,unit:"L",notes:"For Tito's & sodas.",price:1.99},
+{id:"pub-tonic",name:"Tonic water (Schweppes 1L)",qty:2,unit:"L",notes:"For vodka tonics.",price:1.99},
+{id:"pub-cran",name:"Cranberry juice (Ocean Spray 64 oz)",qty:1,unit:"btl",notes:"For vodka crans.",price:4.99},
+{id:"pub-oj",name:"Orange juice (64 oz)",qty:1,unit:"btl",notes:"For screwdrivers.",price:4.99},
+{id:"pub-ginger-beer",name:"Ginger beer (Fever-Tree 4-pk)",qty:2,unit:"4-pk",notes:"For Moscow mules.",price:6.99},
+{id:"pub-limes",name:"Fresh limes",qty:12,unit:"ea",notes:"Cocktail bar.",price:0.5},
+{id:"pub-lemons-fresh",name:"Fresh lemons (cocktail bar)",qty:6,unit:"ea",notes:"Separate from boil lemons.",price:0.69},
+{id:"pub-syrup",name:"Simple syrup",qty:1,unit:"btl",notes:"Optional.",price:4.99},
+{id:"pub-solo-cups",name:"Red Solo cups (16 oz)",qty:1,unit:"50-ct",notes:"Backup if clear cups run low.",price:4.99}
+]},
+{id:"wm",name:"Walmart Supercenter",short:"Walmart",note:"750 Currency Cir, Lake Mary — next to Sam's, same trip.",alert:"Ozark Trail (house brand) beats Academy on cooler + tent. Confirm Bayou Classic paddle in stock.",items:[
+{id:"wm-febreze",name:"Febreze Plug-In (3-pack)",qty:1,unit:"pack",notes:"Pre-party freshen.",price:14.97},
+{id:"wm-febreze-refill",name:"Febreze refill scent boosters",qty:1,unit:"pack",notes:"Optional.",price:8.97},
+{id:"ac-cooler",name:"120 qt hard cooler (Ozark Trail)",qty:2,unit:"ea",notes:"MOVED FROM ACADEMY. Ozark Trail 120qt ~$99 vs Academy $130. Outdoor section.",price:99},
+{id:"ac-tent",name:"10x10 pop-up canopy tent (Ozark Trail)",qty:2,unit:"ea",notes:"MOVED FROM ACADEMY. Ozark Trail Instant Canopy — much cheaper than Academy. Outdoor section.",price:64.98},
+{id:"ac-paddle",name:"Bayou Classic 36\" stainless paddle",qty:1,unit:"ea",notes:"MOVED FROM ACADEMY. Outdoor cooking aisle. If not there, ask housewares.",price:29.97}
+]},
+{id:"sf",name:"Seafood — Lombardi's",short:"Seafood",note:"1295 Lee Rd, Orlando • 407-841-3474",alert:"CALL TODAY to reserve crawfish and head-on shrimp",items:[
+{id:"sf-crawfish",name:"Live crawfish — purged",qty:66,unit:"lbs",notes:"Peak season. Field Run vs Select. $5-7/lb.",price:5.99},
+{id:"sf-shrimp",name:"Head-on shell-on shrimp 21-25 ct",qty:36,unit:"lbs",notes:"Non-negotiable head-on/shell-on. Wild Gulf preferred.",price:9.99},
+{id:"sf-boil",name:"Louisiana Fish Fry boil powder (4 lb)",qty:2,unit:"bag",notes:"2.2 + 2.125 = 4.3 lb. Two 4-lb bags.",price:22.99}
+]}
+]};
+
+let DATA=null,active=null,openKey=null,showAdd=false;
+const $=id=>document.getElementById(id);
+const fmt=n=>'$'+(Number(n)||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+const esc=s=>s==null?'':String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const freshDef=()=>{const d=JSON.parse(JSON.stringify(DATA_DEF));d.stores.forEach(s=>s.items.forEach(i=>i.done=false));return d;};
+
+function loadData(){
+  let stored=null;
+  try{const raw=localStorage.getItem(STORAGE_KEY);if(raw)stored=JSON.parse(raw);}catch(e){}
+  if(!stored){DATA=freshDef();return;}
+  DATA=freshDef();
+  const byId={},stMap={};
+  (stored.stores||[]).forEach(s=>{stMap[s.id]=s;(s.items||[]).forEach(it=>{if(it.id)byId[it.id]={item:it,storeId:s.id};});});
+  const consumed=new Set();
+  DATA.stores.forEach(ds=>{
+    ds.items.forEach(di=>{
+      const m=byId[di.id];if(!m)return;
+      if(m.storeId!==ds.id){di.done=!!m.item.done;}
+      else{if(m.item.qty!==undefined)di.qty=m.item.qty;if(m.item.price!==undefined)di.price=m.item.price;di.done=!!m.item.done;}
+      consumed.add(di.id);
+    });
+  });
+  DATA.stores.forEach(ds=>{
+    const ss=stMap[ds.id];if(!ss)return;
+    ds.items.forEach(di=>{
+      if(consumed.has(di.id))return;
+      const m=(ss.items||[]).find(it=>it.name===di.name&&!(it.id&&consumed.has(it.id)));
+      if(m){if(m.qty!==undefined)di.qty=m.qty;if(m.price!==undefined)di.price=m.price;di.done=!!m.done;if(m.id)consumed.add(m.id);}
+    });
+  });
+  (stored.stores||[]).forEach(ss=>{
+    (ss.items||[]).forEach(it=>{
+      if(it.id&&consumed.has(it.id))return;
+      let tgt=DATA.stores.find(s=>s.id===ss.id);
+      if(!tgt)tgt=DATA.stores.find(s=>s.id==='wm')||DATA.stores[0];
+      if(tgt.items.find(d=>d.name===it.name))return;
+      tgt.items.push({id:it.id||('user-'+Math.random().toString(36).slice(2,8)),name:it.name,qty:it.qty,unit:it.unit,notes:it.notes,price:it.price,done:!!it.done});
+    });
+  });
+  saveData();
+}
+
+function saveData(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(DATA));}catch(e){}}
+
+function tot(s){let t=0,d=0,dt=0;s.items.forEach(it=>{const sub=(Number(it.qty)||0)*(Number(it.price)||0);t+=sub;if(it.done){d++;dt+=sub;}});return{total:t,done:d,dt:dt,count:s.items.length};}
+function gtot(){let t=0,d=0,dt=0,c=0;DATA.stores.forEach(s=>{const x=tot(s);t+=x.total;d+=x.done;dt+=x.dt;c+=x.count;});return{total:t,done:d,dt:dt,count:c};}
+
+function renderChips(){
+  const el=$('chips');el.innerHTML='';
+  DATA.stores.forEach(s=>{
+    const t=tot(s);const rem=t.count-t.done;
+    const c=document.createElement('div');
+    c.className='chip'+(s.id===active?' active':'')+(rem===0?' done':'');
+    c.innerHTML=`${esc(s.short)} <span class="chip-badge">${rem}</span>`;
+    c.onclick=()=>{active=s.id;openKey=null;showAdd=false;render();window.scrollTo({top:0,behavior:'smooth'});};
+    el.appendChild(c);
+  });
+}
+
+function renderStore(){
+  const v=$('view');
+  const s=DATA.stores.find(x=>x.id===active);
+  if(!s){v.innerHTML='';return;}
+  const t=tot(s);
+  const items=s.items.map((it,i)=>{
+    const sub=(Number(it.qty)||0)*(Number(it.price)||0);
+    const k=`${s.id}-${i}`;const isO=openKey===k;
+    const tag=(it.notes||'').startsWith('MOVED FROM')?'<span class="tag">moved</span>':'';
+    return `<div class="item ${it.done?'done':''} ${isO?'open':''}">
+<div class="row">
+<div class="cb ${it.done?'checked':''}" data-a="check" data-k="${k}">✓</div>
+<div class="main" data-a="toggle" data-k="${k}">
+<div class="name">${esc(it.name)}${tag}</div>
+<div class="meta"><span><strong>${it.qty}</strong> ${esc(it.unit||'')}</span><span>@ ${fmt(it.price)}</span><span><strong>${fmt(sub)}</strong></span></div>
+</div></div>
+<div class="exp">
+${it.notes?`<p class="notes">${esc(it.notes)}</p>`:''}
+<div class="edits">
+<div><label>Qty</label><input type="number" inputmode="decimal" step="0.01" value="${it.qty}" data-a="qty" data-k="${k}" /></div>
+<div><label>Price each</label><input type="number" inputmode="decimal" step="0.01" value="${it.price}" data-a="price" data-k="${k}" /></div>
+</div>
+<button class="del" data-a="del" data-k="${k}">🗑 Remove from list</button>
+</div></div>`;
+  }).join('')||'<div style="padding:20px;text-align:center;color:var(--text-tri)">No items.</div>';
+  v.innerHTML=`<div class="card">
+<h2 class="store-name">${esc(s.name)}</h2>
+<p class="store-note">${esc(s.note)}</p>
+${s.alert?`<div class="alert">⚠ ${esc(s.alert)}</div>`:''}
+<div class="stats">
+<div class="stat"><p class="stat-l">Items</p><p class="stat-v">${t.done} / ${t.count}</p></div>
+<div class="stat"><p class="stat-l">Picked up</p><p class="stat-v">${fmt(t.dt)}</p></div>
+<div class="stat"><p class="stat-l">Store total</p><p class="stat-v">${fmt(t.total)}</p></div>
+</div>
+${items}
+<div class="add-row" data-a="add-toggle">+ Add an item</div>
+<div class="add-form ${showAdd?'open':''}">
+<input type="text" placeholder="Item name" id="n-name" />
+<div class="row2"><input type="number" inputmode="decimal" step="0.01" placeholder="Qty" id="n-qty" value="1" /><input type="text" placeholder="Unit (ea, lb)" id="n-unit" /></div>
+<input type="number" inputmode="decimal" step="0.01" placeholder="Price each" id="n-price" />
+<input type="text" placeholder="Notes (optional)" id="n-notes" />
+<button data-a="add-save">+ Add item</button>
+</div></div>
+<div class="grand">
+${DATA.stores.map(x=>{const st=tot(x);return `<div class="gr"><span>${esc(x.short)} <span style="color:var(--text-tri)">(${st.done}/${st.count})</span></span><span class="r">${fmt(st.total)}</span></div>`;}).join('')}
+<div class="gr tot"><span>Grand total</span><span class="r">${fmt(gtot().total)}</span></div>
+<div class="gr" style="font-size:12px;color:var(--text-sec);padding-top:4px"><span>Net after $300 HD credit</span><span class="r">${fmt(Math.max(0,gtot().total-300))}</span></div>
+</div>`;
+}
+
+function renderProg(){
+  const g=gtot();const p=g.count?(g.done/g.count*100):0;
+  $('prog-l').textContent=`${g.done} of ${g.count} items`;
+  $('prog-a').textContent=`${fmt(g.dt)} of ${fmt(g.total)}`;
+  $('prog-f').style.width=p+'%';
+}
+
+function render(){renderChips();renderStore();renderProg();}
+
+function findIt(k){const i=k.lastIndexOf('-');const sid=k.substring(0,i);const idx=parseInt(k.substring(i+1),10);const s=DATA.stores.find(x=>x.id===sid);return{s,it:s.items[idx],idx};}
+
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-a]');if(!t)return;
+  const a=t.dataset.a,k=t.dataset.k;
+  if(a==='check'){const{it}=findIt(k);it.done=!it.done;saveData();render();}
+  else if(a==='toggle'){openKey=(openKey===k)?null:k;render();}
+  else if(a==='del'){if(!confirm('Remove this item?'))return;const{s,idx}=findIt(k);s.items.splice(idx,1);openKey=null;saveData();render();}
+  else if(a==='add-toggle'){showAdd=!showAdd;render();if(showAdd)setTimeout(()=>$('n-name')?.focus(),50);}
+  else if(a==='add-save'){const name=$('n-name').value.trim();if(!name)return;const qty=parseFloat($('n-qty').value)||1;const unit=$('n-unit').value.trim()||'ea';const price=parseFloat($('n-price').value)||0;const notes=$('n-notes').value.trim();const s=DATA.stores.find(x=>x.id===active);s.items.push({id:'user-'+Math.random().toString(36).slice(2,8),name,qty,unit,price,notes,done:false});showAdd=false;saveData();render();}
+});
+
+document.addEventListener('change',e=>{
+  const t=e.target.closest('[data-a]');if(!t)return;
+  const a=t.dataset.a,k=t.dataset.k;
+  if(a==='qty'){const{it}=findIt(k);it.qty=parseFloat(t.value)||0;saveData();render();}
+  else if(a==='price'){const{it}=findIt(k);it.price=parseFloat(t.value)||0;saveData();render();}
+});
+
+$('reset-btn').addEventListener('click',()=>{if(!confirm('Reset everything to defaults?'))return;DATA=freshDef();active=DATA.stores[0].id;openKey=null;showAdd=false;saveData();render();});
+$('uncheck-btn').addEventListener('click',()=>{DATA.stores.forEach(s=>s.items.forEach(it=>it.done=false));saveData();render();});
+
+loadData();active=DATA.stores[0].id;render();
+</script>
+</body>
+</html>
